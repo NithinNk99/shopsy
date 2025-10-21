@@ -1,3 +1,3 @@
 # shopsy
 
-APK LINK : https://drive.google.com/file/d/1PvzgCyGZKDyxa7KEHCw5El0wgOgjU_sn/view?usp=sharing
+APK LINK : https://drive.google.com/file/d/1Br35KVMmAMbXCeFJEC4PZHpfWG0XR8FY/view?usp=sharing
