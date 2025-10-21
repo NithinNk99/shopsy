@@ -64,6 +64,8 @@ class ProductTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 5, horizontal: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
                       color: Colors.deepPurpleAccent,

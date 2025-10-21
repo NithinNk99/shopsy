@@ -33,7 +33,7 @@ class ProductListPageView extends StatelessWidget {
       PopupMenuButton<String>(
         icon: const Icon(Icons.more_vert, color: Colors.white),
         onSelected: (value) {
-          if (value == 'logout') controller.logout();
+          if (value == 'logout') _showLogoutDialog();
         },
         itemBuilder:
             (context) => [
@@ -94,4 +94,27 @@ class ProductListPageView extends StatelessWidget {
       ],
     );
   });
+
+  
+  void _showLogoutDialog() {
+    Get.defaultDialog(
+      title: "Logout",
+      middleText: "Are you sure you want to logout?",
+      confirm: ElevatedButton(
+        onPressed: () {
+          Get.back();
+          controller.logout();
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.deepPurple,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        child: const Text("Yes", style: TextStyle(color: Colors.white)),
+      ),
+      cancel: OutlinedButton(
+        onPressed: () => Get.back(),
+        child: const Text("No"),
+      ),
+    );
+  }
 }

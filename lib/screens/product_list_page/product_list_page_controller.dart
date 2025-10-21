@@ -179,4 +179,5 @@ class ProductListPageController extends GetxController {
     await prefs.clear();
     Get.offAll(() => const LoginPage());
   }
+  
 }

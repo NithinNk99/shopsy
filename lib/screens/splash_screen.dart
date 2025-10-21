@@ -34,7 +34,7 @@ class _SplashViewState extends State<SplashView>
   }
 
   Future<void> checkLogin() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 7));
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
     if (isLoggedIn) {
