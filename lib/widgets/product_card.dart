@@ -62,13 +62,6 @@ class ProductTile extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 12, color: Colors.grey[700]),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    product.specifications,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-                  ),
                   const SizedBox(height: 8),
                   Text(
                     "Rs. ${product.price.toStringAsFixed(2)}",

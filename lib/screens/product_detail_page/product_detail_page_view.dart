@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopsy/models/product_model.dart';
+import 'package:shopsy/screens/cart_page/cart_page_controller.dart';
 import 'package:shopsy/screens/product_detail_page/product_detail_page_controller.dart';
 
 class ProductDetailView extends GetView<ProductDetailPageController> {
@@ -34,13 +35,9 @@ class ProductDetailView extends GetView<ProductDetailPageController> {
             Expanded(
               child: ElevatedButton(
                 onPressed: () {
-                  Get.snackbar(
-                    "Added to Cart",
-                    product.name,
-                    backgroundColor: Colors.green[100],
-                    colorText: Colors.black,
-                    snackPosition: SnackPosition.BOTTOM,
-                  );
+                  Get.lazyPut(() => CartController());
+                  final CartController cartController = Get.find();
+                  cartController.addToCart(product);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[700],
