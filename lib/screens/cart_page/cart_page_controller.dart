@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopsy/models/cart_item.dart';
@@ -7,37 +6,41 @@ import 'package:shopsy/models/product_model.dart';
 
 class CartController extends GetxController {
   var cartItems = <CartItem>[].obs;
+  RxBool isLoading = false.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    loadCartFromPrefs();
+    await loadCartFromPrefs();
   }
 
-  void addToCart(Product product) {
+  void addToCart(Product product) async {
     final index = cartItems.indexWhere((item) => item.product.id == product.id);
-
     if (index >= 0) {
       cartItems[index].quantity++;
+      cartItems.refresh();
     } else {
-      cartItems.add(CartItem(product: product));
+      cartItems.add(CartItem(product: product, quantity: 1));
     }
-
-    saveCartToPrefs();
-
-    Get.snackbar(
-      "Added to Cart 🛍️",
-      product.name,
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: const Color(0xFFE8F5E9),
-      colorText: const Color(0xFF1B5E20),
-      duration: const Duration(seconds: 2),
-    );
+    await saveCartToPrefs();
   }
 
-  void removeFromCart(Product product) {
+  void decreaseQuantity(Product product) async {
+    final index = cartItems.indexWhere((item) => item.product.id == product.id);
+    if (index != -1) {
+      if (cartItems[index].quantity > 1) {
+        cartItems[index].quantity--;
+      } else {
+        cartItems.removeAt(index);
+      }
+      cartItems.refresh();
+      await saveCartToPrefs();
+    }
+  }
+
+  void removeFromCart(Product product) async {
     cartItems.removeWhere((item) => item.product.id == product.id);
-    saveCartToPrefs();
+    await saveCartToPrefs();
   }
 
   void clearCart() {
@@ -58,12 +61,14 @@ class CartController extends GetxController {
   }
 
   Future<void> loadCartFromPrefs() async {
+    isLoading.value = true;
     final prefs = await SharedPreferences.getInstance();
     final cartJson = prefs.getStringList('cart_items');
-
     if (cartJson != null) {
-      cartItems.value =
+      final loadedItems =
           cartJson.map((e) => CartItem.fromJson(jsonDecode(e))).toList();
+      cartItems.assignAll(loadedItems);
     }
+    isLoading.value = false;
   }
 }

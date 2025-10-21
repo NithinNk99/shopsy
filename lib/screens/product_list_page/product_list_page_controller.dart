@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopsy/models/product_model.dart';
+import 'package:shopsy/screens/login_page/login_page_view.dart';
 
 class ProductListPageController extends GetxController {
   List products = [
@@ -155,13 +157,26 @@ class ProductListPageController extends GetxController {
   ];
 
   RxList productList = [].obs;
+  RxString username = ''.obs;
   @override
   void onInit() {
     super.onInit();
     loadProducts();
+    loadUsername();
   }
 
   Future<void> loadProducts() async {
     productList.value = products.map((e) => Product.fromJson(e)).toList();
+  }
+
+  Future<void> loadUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    username.value = prefs.getString('username') ?? '';
+  }
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    Get.offAll(() => const LoginPage());
   }
 }

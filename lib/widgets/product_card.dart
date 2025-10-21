@@ -63,12 +63,20 @@ class ProductTile extends StatelessWidget {
                     style: TextStyle(fontSize: 12, color: Colors.grey[700]),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    "Rs. ${product.price.toStringAsFixed(2)}",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green[700],
-                      fontSize: 14,
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    width: double.infinity,
+                    child: Text(
+                      "Rs. ${product.price.toStringAsFixed(2)}",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                 ],
