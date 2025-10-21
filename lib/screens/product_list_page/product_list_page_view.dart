@@ -26,15 +26,30 @@ class ProductListPageView extends GetView<ProductListPageController> {
         if (controller.productList.isEmpty) {
           return const Center(child: CircularProgressIndicator());
         }
-        return ListView.builder(
-          itemCount: controller.productList.length,
-          itemBuilder: (context, index) {
-            final product = controller.productList[index];
-            return ProductTile(
-              product: product,
-              onTap: () => Get.to(() => ProductDetailView(product: product)),
-            );
-          },
+        return Column(
+          children: [
+            Text('Shopsy'),
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.all(8.0),
+                itemCount: controller.productList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
+                  childAspectRatio: 0.75,
+                ),
+                itemBuilder: (context, index) {
+                  final product = controller.productList[index];
+                  return ProductTile(
+                    product: product,
+                    onTap:
+                        () => Get.to(() => ProductDetailView(product: product)),
+                  );
+                },
+              ),
+            ),
+          ],
         );
       }),
     );

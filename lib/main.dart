@@ -11,13 +11,13 @@ class ShopsyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Shopsy',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+    return SafeArea(
+      child: GetMaterialApp(
+        title: 'Shopsy',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(primarySwatch: Colors.deepPurple),
+        home: const SplashView(),
       ),
-      home: const SplashView(), 
     );
   }
 }
